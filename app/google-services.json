@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "358681368647",
+    "firebase_url": "https://cse-mobile-app-85e20.firebaseio.com",
+    "project_id": "cse-mobile-app-85e20",
+    "storage_bucket": "cse-mobile-app-85e20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:358681368647:android:1795cee46d5c3246",
+        "android_client_info": {
+          "package_name": "org.svcetedu.www.csemobileapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "358681368647-i500ssg16edj1ju4dlier4pm69sc15kr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.svcetedu.www.csemobileapp",
+            "certificate_hash": "1132c76ba39c6b6500fd73fbbe9a56b640c603e9"
+          }
+        },
+        {
+          "client_id": "358681368647-ip2qfk0859jijm8p84os64vhfrt2ig4g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIyF_w40mM6sbtEFAsq32ZXu7pRDgo8JU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "358681368647-ip2qfk0859jijm8p84os64vhfrt2ig4g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
