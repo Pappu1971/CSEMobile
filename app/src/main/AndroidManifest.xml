@@ -16,8 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StudentRegistration.Student_Profile" />
-        <activity android:name=".StudentRegistration.Student_Login"></activity>
+        <activity android:name=".StudentRegistration.Student_Login" />
+        <activity android:name=".Faculty.Faculty_Regsitration"></activity>
     </application>
 
 </manifest>

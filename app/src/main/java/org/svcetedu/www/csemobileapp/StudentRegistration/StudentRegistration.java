@@ -36,7 +36,7 @@ public class StudentRegistration extends AppCompatActivity {
         setContentView(R.layout.activity_student_registration);
 
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("User");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("StudentRegistration");
 
 
         mProgress = new ProgressDialog(this);
@@ -57,8 +57,8 @@ public class StudentRegistration extends AppCompatActivity {
 
     private void startRegister() {
 
-        String name = nameField.getText().toString().trim();
-        String email = emailField.getText().toString().trim();
+        final String name = nameField.getText().toString().trim();
+        final String email = emailField.getText().toString().trim();
         String pass = passField.getText().toString().trim();
 
         if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(pass)) ;
@@ -72,11 +72,11 @@ public class StudentRegistration extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         String user_id = mAuth.getCurrentUser().getUid();
                         DatabaseReference current_user_db = mDatabase.child(user_id);
-                        current_user_db.child("name").setValue("name");
+                        current_user_db.child("name").setValue(name);
+                        current_user_db.child("email").setValue(email);
                         current_user_db.child("image").setValue("default");
                         mProgress.dismiss();
-                        //Intent mainIntent = new Intent(RegisterActivity.this, SetupActivity.class);
-                        //startActivity(mainIntent);
+
 
                     }
 
