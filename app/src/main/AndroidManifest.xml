@@ -17,7 +17,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".StudentRegistration.Student_Login" />
-        <activity android:name=".Faculty.Faculty_Regsitration"></activity>
+        <activity android:name=".Faculty.Faculty_Regsitration" />
+        <activity
+            android:name=".StudentRegistration.StudentDash"
+            android:label="@string/title_activity_student_dash"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
