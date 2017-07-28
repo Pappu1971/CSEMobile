@@ -1,4 +1,4 @@
-package org.svcetedu.www.csemobileapp.StudentRegistration;
+package org.svcetedu.www.csemobileapp.Faculty;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,16 +15,24 @@ import android.view.MenuItem;
 
 import org.svcetedu.www.csemobileapp.R;
 
-public class StudentDash extends AppCompatActivity
+public class FacultyDash extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_dash);
+        setContentView(R.layout.activity_faculty_dash);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -49,7 +57,7 @@ public class StudentDash extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.student_dash, menu);
+        getMenuInflater().inflate(R.menu.faculty_dash, menu);
         return true;
     }
 

@@ -1,4 +1,4 @@
-package org.svcetedu.www.csemobileapp.StudentRegistration;
+package org.svcetedu.www.csemobileapp.Faculty;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -8,8 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,40 +25,32 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.svcetedu.www.csemobileapp.R;
 
-public class Student_Login extends AppCompatActivity {
-
-    private static long back_pressed;
-    private EditText emailstudent;
-    private EditText passstudent;
+public class Faculty_Login extends AppCompatActivity {
+    private EditText emailfaculty;
+    private EditText passfaculty;
     private Button login;
     private TextView registeraccount;
     private ProgressDialog mProgress;
-    private FirebaseAuth mAuth;
-    private DatabaseReference mDatabaseUser;
-
-
+    private FirebaseAuth facultyloginAuth;
+    private DatabaseReference facultyloginDatabaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_student__login);
-
+        setContentView(R.layout.activity_faculty__login);
         mProgress = new ProgressDialog(this);
-        mAuth = FirebaseAuth.getInstance();
-        mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("StudentRegistration");
-        mDatabaseUser.keepSynced(true);
-        emailstudent = (EditText) findViewById(R.id.studentloginemail);
-        passstudent = (EditText) findViewById(R.id.studentloginpass);
+        facultyloginAuth = FirebaseAuth.getInstance();
+        facultyloginDatabaseUser = FirebaseDatabase.getInstance().getReference().child("FacultyRegistration");
+        facultyloginDatabaseUser.keepSynced(true);
+        emailfaculty = (EditText) findViewById(R.id.facultyloginemail);
+        passfaculty = (EditText) findViewById(R.id.facultyloginpass);
 
         login = (Button) findViewById(R.id.login);
         registeraccount = (TextView) findViewById(R.id.register);
         registeraccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent register = new Intent(Student_Login.this, StudentRegistration.class);
+                Intent register = new Intent(Faculty_Login.this, Faculty_Regsitration.class);
                 startActivity(register);
             }
         });
@@ -75,12 +65,12 @@ public class Student_Login extends AppCompatActivity {
 
     private void checkLogin() {
 
-        String email = emailstudent.getText().toString().trim();
-        String pass = passstudent.getText().toString().trim();
+        String email = emailfaculty.getText().toString().trim();
+        String pass = passfaculty.getText().toString().trim();
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(pass)) {
             mProgress.setMessage("Checking Login...");
             mProgress.show();
-            mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            facultyloginAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
@@ -89,7 +79,7 @@ public class Student_Login extends AppCompatActivity {
                     } else {
 
                         mProgress.dismiss();
-                        Toast.makeText(Student_Login.this, "Error Login", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Faculty_Login.this, "Error Login", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -98,17 +88,17 @@ public class Student_Login extends AppCompatActivity {
     }
 
     private void checkUserExist() {
-        final String user_id = mAuth.getCurrentUser().getUid();
-        mDatabaseUser.addValueEventListener(new ValueEventListener() {
+        final String user_id = facultyloginAuth.getCurrentUser().getUid();
+        facultyloginDatabaseUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if (dataSnapshot.hasChild(user_id)) {
-                    Intent loginIntent = new Intent(Student_Login.this, StudentDash.class);
+                    Intent loginIntent = new Intent(Faculty_Login.this, FacultyDash.class);
                     loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(loginIntent);
                 } else {
-                    Toast.makeText(Student_Login.this, "You need to setup Your account", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Faculty_Login.this, "You need to setup Your account", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -120,7 +110,7 @@ public class Student_Login extends AppCompatActivity {
         });
 
     }
-
+/*
     @Override
     public void onBackPressed() {
         if (back_pressed + 2000 > System.currentTimeMillis()) {
@@ -134,6 +124,6 @@ public class Student_Login extends AppCompatActivity {
         }
 
 
-    }
-    }
+    }*/
 
+}

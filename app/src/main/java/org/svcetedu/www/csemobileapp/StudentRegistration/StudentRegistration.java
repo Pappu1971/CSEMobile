@@ -80,7 +80,8 @@ public class StudentRegistration extends AppCompatActivity {
                         current_user_db.child("email").setValue(email);
                         current_user_db.child("image").setValue("default");
                         mProgress.dismiss();
-
+                        Intent myintent=new Intent(StudentRegistration.this,StudentDash.class);
+                        startActivity(myintent);
 
                     }
 

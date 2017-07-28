@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/fcirculars"
+            android:title="Circulars" />
+        <item
+            android:id="@+id/flecturenotes"
+            android:title="Lecture Notes" />
+        <item
+            android:id="@+id/fsyllabus"
+            android:title="Syllabus" />
+        <item
+            android:id="@+id/facademicactivies"
+            android:title="Academic Activities" />
+        <item
+            android:id="@+id/fdepartmental"
+            android:title="Departmental Activities" />
+        <item
+            android:id="@+id/fresults"
+            android:title="Results" />
+        <item
+            android:id="@+id/fattendance"
+            android:title="Attendance" />
+    </group>
+
+    <item android:title="Others">
+        <menu>
+                <item
+                    android:id="@+id/studentlist"
+                    android:title="Students List">
+
+                </item>
+        </menu>
+    </item>
+
+</menu>
