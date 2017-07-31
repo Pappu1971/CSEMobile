@@ -25,4 +25,14 @@
             android:title="Attendance" />
     </group>
 
+    <item android:title="Others">
+        <menu>
+            <item
+                android:id="@+id/logout"
+                android:title="Logout">
+
+            </item>
+        </menu>
+    </item>
+
 </menu>

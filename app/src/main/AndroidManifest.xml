@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logoname"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -23,15 +23,15 @@
         <activity
             android:name=".StudentRegistration.StudentDash"
             android:label="@string/title_activity_student_dash"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Faculty.FacultyDash"
             android:label="@string/title_activity_faculty_dash"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Faculty.Faculty_Login"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-
-        </activity>
+        <activity
+            android:name=".Faculty.Faculty_Login"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"></activity>
+        <activity android:name=".Faculty.CicularPosting"></activity>
     </application>
 
 </manifest>

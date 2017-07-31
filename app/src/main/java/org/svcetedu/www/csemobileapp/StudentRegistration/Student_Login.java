@@ -37,6 +37,7 @@ public class Student_Login extends AppCompatActivity {
     private ProgressDialog mProgress;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabaseUser;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
 
 
@@ -54,6 +55,15 @@ public class Student_Login extends AppCompatActivity {
         mDatabaseUser.keepSynced(true);
         emailstudent = (EditText) findViewById(R.id.studentloginemail);
         passstudent = (EditText) findViewById(R.id.studentloginpass);
+        mAuthListener=new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if(firebaseAuth.getCurrentUser()!=null)
+                {
+                    startActivity(new Intent(Student_Login.this, StudentDash.class));
+                }
+            }
+        };
 
         login = (Button) findViewById(R.id.login);
         registeraccount = (TextView) findViewById(R.id.register);
@@ -70,6 +80,11 @@ public class Student_Login extends AppCompatActivity {
                 checkLogin();
             }
         });
+
+    }
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener );
 
     }
 

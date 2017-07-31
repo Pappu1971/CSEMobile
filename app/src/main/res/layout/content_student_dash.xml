@@ -7,5 +7,10 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="org.svcetedu.www.csemobileapp.StudentRegistration.StudentDash"
     tools:showIn="@layout/app_bar_student_dash">
+    <FrameLayout
+        android:id="@+id/contentfame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 
 </android.support.constraint.ConstraintLayout>
