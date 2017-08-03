@@ -13,11 +13,7 @@
         <activity
             android:name=".StudentRegistration.Student_Login"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Faculty.Faculty_Regsitration" />
         <activity
@@ -30,8 +26,16 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Faculty.Faculty_Login"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"></activity>
-        <activity android:name=".Faculty.CicularPosting"></activity>
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity android:name=".Faculty.CicularPosting"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            </activity>
+        <activity android:name=".Faculty.CircularDisplay"></activity>
     </application>
 
 </manifest>

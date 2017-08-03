@@ -5,10 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.svcetedu.www.csemobileapp.Faculty.CicularPosting">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <ImageButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,7 +24,6 @@
             android:background="@color/cardview_light_background"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true" />
-
 
     <EditText
         android:layout_width="match_parent"
@@ -38,20 +42,19 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:inputType="textMultiLine"
+        android:layout_height="80dp"
+        android:inputType="text"
         android:background="@drawable/line"
         android:ems="10"
         android:layout_below="@+id/circularTitle"
-        android:layout_centerHorizontal="true"
         android:id="@+id/circularDesc"
         android:hint="Description"
-
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:padding="15dp"/>
     </LinearLayout>
+    </ScrollView>
 
     <Button
         android:text="Submit Circular"
