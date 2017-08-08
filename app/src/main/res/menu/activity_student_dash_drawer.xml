@@ -9,7 +9,7 @@
             android:id="@+id/lecturenotes"
             android:title="Lecture Notes" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/ssyllabus"
             android:title="Syllabus" />
         <item
             android:id="@+id/academicactivies"

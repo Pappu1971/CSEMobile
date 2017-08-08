@@ -19,7 +19,7 @@
         <activity
             android:name=".StudentRegistration.StudentDash"
             android:label="@string/title_activity_student_dash"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"  />
         <activity
             android:name=".Faculty.FacultyDash"
             android:label="@string/title_activity_faculty_dash"
@@ -27,15 +27,20 @@
         <activity
             android:name=".Faculty.Faculty_Login"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-        <activity android:name=".Faculty.CicularPosting"
-            >
+        <activity android:name=".Faculty.CicularPosting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            </activity>
-        <activity android:name=".Faculty.CircularDisplay"></activity>
+        </activity>
+        <activity android:name=".Faculty.CircularDisplay">
+
+        </activity>
+        <activity android:name=".StudentRegistration.Syllabus"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>

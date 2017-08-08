@@ -14,25 +14,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/add_btn"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/imageButton"
-            android:background="@color/cardview_light_background"
-            android:scaleType="centerCrop"
-            android:adjustViewBounds="true" />
-
-    <EditText
+        <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/line"
         android:hint="Circular Title"
         android:id="@+id/circularTitle"
         android:layout_marginTop="20dp"
@@ -44,25 +32,29 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:inputType="text"
-        android:background="@drawable/line"
+
         android:ems="10"
         android:layout_below="@+id/circularTitle"
         android:id="@+id/circularDesc"
-        android:hint="Description"
+        android:hint="Message "
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:padding="15dp"/>
+
+
+
     </LinearLayout>
     </ScrollView>
-
     <Button
         android:text="Submit Circular"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:textColor="@android:color/white"
         android:background="@color/colorPrimary"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/submit" />
+        android:id="@+id/submit"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

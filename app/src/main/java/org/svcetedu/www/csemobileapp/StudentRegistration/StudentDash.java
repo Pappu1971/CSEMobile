@@ -3,12 +3,9 @@ package org.svcetedu.www.csemobileapp.StudentRegistration;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -131,6 +128,11 @@ public class StudentDash extends AppCompatActivity
             FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.contentfame,fragment,"Circulars");
             fragmentTransaction.commit();
+        }
+        if(id==R.id.ssyllabus)
+        {
+            Intent syllabus=new Intent(StudentDash.this,Syllabus.class);
+            startActivity(syllabus);
         }
 
 
