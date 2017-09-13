@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.svcetedu.www.csemobileapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".OfflineWorks"
         android:allowBackup="true"
         android:icon="@drawable/logoname"
         android:label="@string/app_name"
@@ -13,32 +16,49 @@
         <activity
             android:name=".StudentRegistration.Student_Login"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        </activity>
-        <activity android:name=".Faculty.Faculty_Regsitration" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            </activity>
+        <activity
+            android:name=".Faculty.Faculty_Regsitration"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".StudentRegistration.StudentDash"
             android:label="@string/title_activity_student_dash"
-            android:theme="@style/AppTheme.NoActionBar"  />
+            android:theme="@style/AppTheme.NoActionBar">
+
+            </activity>
         <activity
             android:name=".Faculty.FacultyDash"
             android:label="@string/title_activity_faculty_dash"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Faculty.Faculty_Login"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-        <activity android:name=".Faculty.CicularPosting">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".Faculty.CircularDisplay">
+            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-        <activity android:name=".StudentRegistration.Syllabus"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <activity android:name=".Faculty.CicularPosting" />
+        <activity android:name=".Faculty.CircularDisplay" />
+        <activity
+            android:name=".Faculty.AllStudent"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".StudentRegistration.LecutureNotes"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Faculty.CloudComputingLecturePost"></activity>
+        <activity
+            android:name=".StudentRegistration.Intro"
+            android:label="Intro"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Faculty.WSLecturePosting" />
+        <activity android:name=".Faculty.CNSLecturePosting" />
+        <activity android:name=".StudentRegistration.OnlineCourses"
+            android:theme="@style/AppTheme.NoActionBar">
+
+
 
         </activity>
     </application>

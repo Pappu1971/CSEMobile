@@ -1,12 +1,14 @@
 package org.svcetedu.www.csemobileapp.StudentRegistration;
 
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.ViewGroup;
 import android.webkit.CookieManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -15,20 +17,29 @@ import android.widget.ProgressBar;
 
 import org.svcetedu.www.csemobileapp.R;
 
-public class Syllabus extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class Syllabus extends Fragment {
+        private View mMainView;
     ProgressBar progressBar;
     WebView webView;
+    final static String myBlogAddr = "http://svcetedu.org/wp/cse-syllabus/";
+    String myUrl;
+
+    public Syllabus() {
+        // Required empty public constructor
+    }
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_syllabus);
-        progressBar=(ProgressBar)findViewById(R.id.progressbar);
-        webView=(WebView)findViewById(R.id.webView2);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        mMainView=inflater.inflate(R.layout.fragment_syllabus, container, false);
 
+        progressBar=(ProgressBar)mMainView.findViewById(R.id.progressbar);
+        webView=(WebView)mMainView.findViewById(R.id.webview2);
 
         if(savedInstanceState!=null)
         {
@@ -38,9 +49,9 @@ public class Syllabus extends AppCompatActivity {
         else
         {
             webView.getSettings().setJavaScriptEnabled(true);
-            webView.getSettings().setSupportZoom(false);
+            webView.getSettings().setSupportZoom(true);
             webView.getSettings().setBuiltInZoomControls(false);
-            webView.getSettings().setLoadWithOverviewMode(true);
+            webView.getSettings().setLoadWithOverviewMode(false);
             webView.getSettings().setUseWideViewPort(true);
             webView.getSettings().setAppCacheEnabled(true);
             webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
@@ -65,16 +76,15 @@ public class Syllabus extends AppCompatActivity {
 
             );
 
-            String data=getIntent().getDataString();
-            if(Intent.ACTION_VIEW.equals(getIntent().getAction()))
-            {
-                webView.loadUrl(data);
-            }
-            else
-            {
-                webView.loadUrl("http://svcetedu.org/wp/cse-syllabus/");
-            }
+
         }
+        if(myUrl == null){
+            myUrl = myBlogAddr;
+        }
+        webView.loadUrl(myUrl);
+
+
+        return mMainView;
     }
 
     public class ourViewClient extends WebViewClient
@@ -101,17 +111,7 @@ public class Syllabus extends AppCompatActivity {
             super.onPageFinished(view,url);
         }
     }
-    public void onBackPressed()
-    {
-        if(webView.canGoBack())
-        {
-            webView.goBack();
-        }
-        else
-        {
-            super.onBackPressed();
-        }
-    }
+
 
     public void onSaveInstanceState(Bundle outState)
     {
@@ -123,5 +123,5 @@ public class Syllabus extends AppCompatActivity {
 
 
     }
-    }
 
+}

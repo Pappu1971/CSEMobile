@@ -2,11 +2,13 @@ package org.svcetedu.www.csemobileapp.StudentRegistration;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -48,6 +50,42 @@ public class Student_Login extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_student__login);
+        //App Intro
+
+        final String PREFS_NAME = "MyPrefsFile";
+
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+
+        if (settings.getBoolean("my_first_time", true)) {
+            //the app is being launched for first time, do something
+            Intent newactivity=new Intent(getApplicationContext(),Intro.class);
+            startActivity(newactivity);
+            Log.d("Comments", "First time");
+
+            // first time task
+
+            // record the fact that the app has been started at least once
+            settings.edit().putBoolean("my_first_time", false).commit();
+        }
+        else {
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         mProgress = new ProgressDialog(this);
         mAuth = FirebaseAuth.getInstance();
@@ -72,6 +110,7 @@ public class Student_Login extends AppCompatActivity {
             public void onClick(View view) {
                 Intent register = new Intent(Student_Login.this, StudentRegistration.class);
                 startActivity(register);
+                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
             }
         });
         login.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +160,9 @@ public class Student_Login extends AppCompatActivity {
                 if (dataSnapshot.hasChild(user_id)) {
                     Intent loginIntent = new Intent(Student_Login.this, StudentDash.class);
                     loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
                     startActivity(loginIntent);
+                    overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                 } else {
                     Toast.makeText(Student_Login.this, "You need to setup Your account", Toast.LENGTH_SHORT).show();
                 }
@@ -143,9 +184,11 @@ public class Student_Login extends AppCompatActivity {
             finish();
             ActivityCompat.finishAffinity(this);
             System.exit(0);
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         } else {
             Toast.makeText(getBaseContext(), "Press once again to exit", Toast.LENGTH_SHORT).show();
             back_pressed = System.currentTimeMillis();
+
         }
 
 

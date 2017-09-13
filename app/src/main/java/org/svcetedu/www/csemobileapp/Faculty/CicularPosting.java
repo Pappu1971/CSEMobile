@@ -12,10 +12,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.svcetedu.www.csemobileapp.R;
 
@@ -42,8 +44,7 @@ public class CicularPosting extends AppCompatActivity {
         mDatabasePost = FirebaseDatabase.getInstance().getReference().child("CircularPost");
         mStorage = FirebaseStorage.getInstance().getReference();
         mProgress = new ProgressDialog(this);
-
-       // mSelectImage = (ImageButton) findViewById(R.id.imageButton);
+        mSelectImage = (ImageButton) findViewById(R.id.selectImage);
         mPostTitle = (EditText) findViewById(R.id.circularTitle);
         mpostDesc = (EditText) findViewById(R.id.circularDesc);
         mSubmit = (Button) findViewById(R.id.submit);
@@ -56,19 +57,39 @@ public class CicularPosting extends AppCompatActivity {
                 startPosting();
             }
         });
+
+        mSelectImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent galleryIntent=new Intent(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent,GALLERY_REQUEST);
+            }
+        });
     }
 
     private void startPosting() {
-        String post=mPostTitle.getText().toString().trim();
-        String desc=mpostDesc.getText().toString().trim();
-        if(!TextUtils.isEmpty(post)&& !TextUtils.isEmpty(desc))
+        final String post=mPostTitle.getText().toString().trim();
+        final String desc=mpostDesc.getText().toString().trim();
+        if(!TextUtils.isEmpty(post) && !TextUtils.isEmpty(desc)&& imageUri!=null)
         {
-            DatabaseReference postCircular= mDatabasePost.push();
-            postCircular.child("CicularTitle").setValue(post);
-            postCircular.child("CircularMessage").setValue(desc);
-            Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+            StorageReference filepath = mStorage.child("Blog_Images").child(imageUri.getLastPathSegment());
+            filepath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Uri downloadUrl=taskSnapshot.getDownloadUrl();
+                    DatabaseReference newPost=mDatabasePost.push();
+                    newPost.child("title").setValue(post);
+                    newPost.child("desc").setValue(desc);
+                    newPost.child("image").setValue(downloadUrl.toString());
 
+
+                    mProgress.dismiss();
+                    //startActivity(new Intent(PostActivity.this,MainActivity.class));
+                }
+            });
         }
+
 
 
     }

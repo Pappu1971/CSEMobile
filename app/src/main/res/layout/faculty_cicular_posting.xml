@@ -9,10 +9,22 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        
+        
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <ImageButton
+            android:layout_width="300dp"
+            android:layout_height="215dp"
+            android:layout_gravity="center"
+            android:cropToPadding="true"
+            android:scaleType="centerInside"
+            android:id="@+id/selectImage"
+            android:src="@drawable/add_btn"
+            />
 
         <EditText
         android:layout_width="match_parent"

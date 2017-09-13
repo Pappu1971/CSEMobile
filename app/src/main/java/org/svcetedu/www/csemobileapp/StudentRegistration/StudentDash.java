@@ -13,9 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -27,17 +29,22 @@ public class StudentDash extends AppCompatActivity
     private DatabaseReference mDatabaseUser;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private static long back_pressed;
+    private FirebaseUser mCurrentUser;
 
+    private TextView userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_dash);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //final String user_id = getIntent().getStringExtra("name");
+
 
 
 
         mDatabaseUser= FirebaseDatabase.getInstance().getReference().child("StudentRegistration");
+        mCurrentUser=FirebaseAuth.getInstance().getCurrentUser();
         mAuth= FirebaseAuth.getInstance();
         mAuthListener=new FirebaseAuth.AuthStateListener() {
             @Override
@@ -50,19 +57,26 @@ public class StudentDash extends AppCompatActivity
                 }
             }
         };
+
+
+
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-        setTitle("Ciculars");
+        setTitle("Circulars");
         Circular fragment = new Circular();
         FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.contentfame,fragment,"Circulars");
         fragmentTransaction.commit();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
     }
 
     @Override
@@ -120,6 +134,7 @@ public class StudentDash extends AppCompatActivity
         if(id==R.id.logout)
         {
             mAuth.signOut();
+
         }
         if(id==R.id.circulars)
         {
@@ -131,8 +146,25 @@ public class StudentDash extends AppCompatActivity
         }
         if(id==R.id.ssyllabus)
         {
-            Intent syllabus=new Intent(StudentDash.this,Syllabus.class);
-            startActivity(syllabus);
+            setTitle("Syllabus");
+            Syllabus fragment = new Syllabus();
+            FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.contentfame,fragment,"Syllabus");
+            fragmentTransaction.commit();
+        }
+
+        if(id==R.id.lecturenotes)
+        {
+            Intent lecuter=new Intent(StudentDash.this,LecutureNotes.class);
+            startActivity(lecuter);
+
+        }
+
+
+        if (id==R.id.onlinelearning)
+        {
+            Intent onlinelearning=new Intent(StudentDash.this,OnlineCourses.class);
+            startActivity(onlinelearning);
         }
 
 

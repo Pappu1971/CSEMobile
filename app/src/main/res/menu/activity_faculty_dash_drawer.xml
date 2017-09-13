@@ -1,13 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Circulars">
+        <menu>
+            <item
+                android:id="@+id/circulars"
+                android:title="Circulars">
+
+            </item>
+            <item android:id="@+id/postCircular"
+                android:title="Post Circular"></item>
+        </menu>
+    </item>'
+
+
+    <item android:title="Lecture Notes">
+        <menu>
+            <item
+                android:id="@+id/lecCloudComputing"
+                android:title="Cloud Computing">
+
+            </item>
+            <item
+                android:id="@+id/lecwebServices"
+                android:title="Web Services">
+
+            </item>
+
+            <item
+                android:id="@+id/lecCNS"
+                android:title="CNS">
+
+            </item>
+
+            <item
+                android:id="@+id/lecAI"
+                android:title="Artificial Intelligence">
+
+            </item>
+
+        </menu>
+    </item>
+
+
+
+
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/fcirculars"
-            android:title="Circulars" />
-        <item
-            android:id="@+id/flecturenotes"
-            android:title="Lecture Notes" />
         <item
             android:id="@+id/fsyllabus"
             android:title="Syllabus" />
@@ -24,6 +62,12 @@
             android:id="@+id/fattendance"
             android:title="Attendance" />
     </group>
+
+
+
+
+
+
 
     <item android:title="Others">
         <menu>
