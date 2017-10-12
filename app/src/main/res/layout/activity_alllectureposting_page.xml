@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffff"
+    android:layout_gravity="center"
+    android:layout_centerInParent="true"
+    tools:context="org.svcetedu.www.csemobileapp.Faculty.AlllecturepostingPage">
+
+    <ImageButton
+        android:id="@+id/cc"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="147dp"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/cc"
+        android:background="#ffff"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:id="@+id/ws"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/cc"
+        android:layout_alignTop="@+id/cc"
+        android:layout_marginStart="25dp"
+        android:background="#ffff"
+        android:layout_toEndOf="@+id/cc"
+         />
+
+    <ImageButton
+        android:id="@+id/ai"
+
+        android:layout_alignTop="@+id/ws"
+        android:layout_marginStart="38dp"
+        android:layout_toEndOf="@+id/ws"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/cc"
+        android:background="#ffff"/>
+
+    <ImageButton
+        android:id="@+id/cns"
+        android:layout_alignStart="@+id/cc"
+        android:layout_below="@+id/cc"
+        android:layout_marginTop="56dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/cc"
+        android:background="#ffff" />
+
+    <ImageButton
+        android:id="@+id/mc"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/cc"
+        android:background="#ffff"
+        android:layout_alignStart="@+id/ws"
+        android:layout_alignTop="@+id/cns"
+    />
+
+    <ImageButton
+        android:id="@+id/st"
+
+        android:layout_alignStart="@+id/ai"
+        android:layout_alignTop="@+id/mc"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/cc"
+        android:background="#ffff"/>
+
+</RelativeLayout>

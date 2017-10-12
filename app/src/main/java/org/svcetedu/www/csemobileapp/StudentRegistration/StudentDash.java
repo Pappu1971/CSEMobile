@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.svcetedu.www.csemobileapp.Faculty.Result;
 import org.svcetedu.www.csemobileapp.R;
 
 public class StudentDash extends AppCompatActivity
@@ -120,7 +121,8 @@ public class StudentDash extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent aboutus=new Intent(StudentDash.this,AboutUs.class);
+            startActivity(aboutus);
         }
 
         return super.onOptionsItemSelected(item);
@@ -165,6 +167,22 @@ public class StudentDash extends AppCompatActivity
         {
             Intent onlinelearning=new Intent(StudentDash.this,OnlineCourses.class);
             startActivity(onlinelearning);
+        }
+
+        if(id==R.id.results)
+        {
+            setTitle("Results");
+            Result fragment = new Result();
+            FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.contentfame,fragment,"Result");
+            fragmentTransaction.commit();
+        }
+
+
+        if(id==R.id.stattendance)
+        {
+            Intent attendance=new Intent(StudentDash.this,AttendanceView.class);
+            startActivity(attendance);
         }
 
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -26,6 +27,8 @@ import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import org.svcetedu.www.csemobileapp.R;
+import org.svcetedu.www.csemobileapp.StudentRegistration.AboutUs;
+import org.svcetedu.www.csemobileapp.StudentRegistration.Syllabus;
 
 public class FacultyDash extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,7 +47,7 @@ public class FacultyDash extends AppCompatActivity
         setSupportActionBar(toolbar);
         //Firebase Works
         ImageView icon=new ImageView(this);
-        icon.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_menu_send));
+        icon.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_add_circle_outline_black_24dp));
 
         FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
                 .setContentView(icon)
@@ -61,18 +64,26 @@ public class FacultyDash extends AppCompatActivity
 
 //Button 2
         itemIcon = new ImageView(this);
-        itemIcon.setImageDrawable( ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_arrow_back_white));
+        itemIcon.setImageDrawable( ContextCompat.getDrawable(getApplicationContext(),R.drawable.note));
         SubActionButton button2 = itemBuilder.setContentView(itemIcon).build();
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent postCC=new Intent(FacultyDash.this,CloudComputingLecturePost.class);
+                startActivity(postCC);
+            }
+        });
 
 
 //Button 3
         itemIcon = new ImageView(this);
-        itemIcon.setImageDrawable( ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_menu_camera));
+        itemIcon.setImageDrawable( ContextCompat.getDrawable(getApplicationContext(),R.drawable.circular));
         SubActionButton button3 = itemBuilder.setContentView(itemIcon).build();
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(FacultyDash.this, "Welcome", Toast.LENGTH_SHORT).show();
+                Intent postCircular=new Intent(FacultyDash.this,CicularPosting.class);
+                startActivity(postCircular);
             }
         });
 
@@ -80,6 +91,12 @@ public class FacultyDash extends AppCompatActivity
         itemIcon = new ImageView(this);
         itemIcon.setImageDrawable( ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_menu_share));
         SubActionButton button4 = itemBuilder.setContentView(itemIcon).build();
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(FacultyDash.this, "Thank You ", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 
@@ -93,7 +110,7 @@ public class FacultyDash extends AppCompatActivity
                 .build();
 
 
-        mDatabaseUser= FirebaseDatabase.getInstance().getReference().child("FacultyRegistration");
+        mDatabaseUser= FirebaseDatabase.getInstance().getReference().child("Faculty");
         mCurrentUser=FirebaseAuth.getInstance().getCurrentUser();
         mAuth= FirebaseAuth.getInstance();
         mAuthListener=new FirebaseAuth.AuthStateListener() {
@@ -115,10 +132,24 @@ public class FacultyDash extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        setTitle("Circulars");
+        FacultyCircularDisplay fragment = new FacultyCircularDisplay();
+        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.contentfame,fragment,"Circulars");
+        fragmentTransaction.commit();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -152,7 +183,8 @@ public class FacultyDash extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent aboutus=new Intent(FacultyDash.this, AboutUs.class);
+            startActivity(aboutus);
         }
 
         return super.onOptionsItemSelected(item);
@@ -163,11 +195,60 @@ public class FacultyDash extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
+        if(id==R.id.facultycirculars)
+        {
+            setTitle("Circulars");
+            FacultyCircularDisplay fragment = new FacultyCircularDisplay();
+            FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.contentfame,fragment,"Circulars");
+            fragmentTransaction.commit();
+        }
+
+
+        if (id==R.id.postCircular)
+        {
+            Intent startPosting= new Intent(FacultyDash.this,CicularPosting.class);
+            startActivity(startPosting);
+        }
+
         if(id==R.id.studentlist)
         {
             Intent studentList=new Intent(FacultyDash.this,AllStudent.class);
             startActivity(studentList);
         }
+
+        if(id==R.id.lecCloudComputing)
+        {
+            Intent lectureCloudComputing=new Intent(FacultyDash.this,CloudComputingLecturePost.class);
+            startActivity(lectureCloudComputing);
+        }
+
+        if (id==R.id.fsyllabus)
+        {
+            setTitle("Syllabus");
+            Syllabus fragment = new Syllabus();
+            FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.contentfame,fragment,"Syllabus");
+            fragmentTransaction.commit();
+        }
+
+        if(id==R.id.logoutFaculty)
+        {
+            mAuth.signOut();
+
+        }
+
+
+        if(id==R.id.fresults)
+        {
+            setTitle("Results");
+            Result fragment = new Result();
+            FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.contentfame,fragment,"Result");
+            fragmentTransaction.commit();
+        }
+
 
 
 

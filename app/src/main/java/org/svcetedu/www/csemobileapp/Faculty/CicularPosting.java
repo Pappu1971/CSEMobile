@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +33,7 @@ public class CicularPosting extends AppCompatActivity {
     private StorageReference mStorage;
     private DatabaseReference mDatabasePost;
     private ProgressDialog mProgress;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,16 @@ public class CicularPosting extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         }
+
+
+        mToolbar = (Toolbar) findViewById(R.id.register_toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("Post Your Notice");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
+
         mDatabasePost = FirebaseDatabase.getInstance().getReference().child("CircularPost");
         mStorage = FirebaseStorage.getInstance().getReference();
         mProgress = new ProgressDialog(this);
@@ -69,11 +82,18 @@ public class CicularPosting extends AppCompatActivity {
     }
 
     private void startPosting() {
+        mProgress.setTitle("Please Wait Sir");
+        mProgress.setMessage("We are uploading your Notice");
+        mProgress.show();
+        mProgress.setCanceledOnTouchOutside(false);
+
         final String post=mPostTitle.getText().toString().trim();
         final String desc=mpostDesc.getText().toString().trim();
         if(!TextUtils.isEmpty(post) && !TextUtils.isEmpty(desc)&& imageUri!=null)
         {
-            StorageReference filepath = mStorage.child("Blog_Images").child(imageUri.getLastPathSegment());
+
+
+            StorageReference filepath = mStorage.child("Circular_Images").child(imageUri.getLastPathSegment());
             filepath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -85,7 +105,9 @@ public class CicularPosting extends AppCompatActivity {
 
 
                     mProgress.dismiss();
-                    //startActivity(new Intent(PostActivity.this,MainActivity.class));
+                    Toast.makeText(CicularPosting.this, "Thank You Sir", Toast.LENGTH_SHORT).show();
+                    Intent circulardisplay=new Intent(CicularPosting.this,FacultyDash.class);
+                    startActivity(circulardisplay);
                 }
             });
         }
@@ -101,6 +123,17 @@ public class CicularPosting extends AppCompatActivity {
             imageUri = data.getData();
             mSelectImage.setImageURI(imageUri);
         }
+    }
+
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

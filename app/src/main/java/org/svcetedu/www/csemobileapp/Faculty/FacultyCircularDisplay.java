@@ -1,6 +1,7 @@
-package org.svcetedu.www.csemobileapp.StudentRegistration;
+package org.svcetedu.www.csemobileapp.Faculty;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,15 +16,14 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
+import com.squareup.picasso.Picasso;
 
 import org.svcetedu.www.csemobileapp.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CloudComputing extends Fragment {
-
+public class FacultyCircularDisplay extends Fragment {
     private RecyclerView mBlogList;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
@@ -33,10 +33,8 @@ public class CloudComputing extends Fragment {
     private TextView postTitle;
     private TextView postDesc;
     private ImageView postImage;
-    private FirebaseStorage mStorage;
 
-
-    public CloudComputing() {
+    public FacultyCircularDisplay() {
         // Required empty public constructor
     }
 
@@ -45,55 +43,52 @@ public class CloudComputing extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mMainView= inflater.inflate(R.layout.fragment_cloud_computing, container, false);
+        mMainView= inflater.inflate(R.layout.fragment_faculty_circular_display, container, false);
 
-       // mMainView= inflater.inflate(R.layout.studentfragment_circular, container, false);
-
-        mBlogList = (RecyclerView) mMainView.findViewById(R.id.cloudComputing);
+        mBlogList = (RecyclerView) mMainView.findViewById(R.id.blog_list);
         mAuth = FirebaseAuth.getInstance();
 
 
         //Declaration of all modules
-        postTitle=(TextView)mMainView.findViewById(R.id.notes_title);
-        postDesc=(TextView)mMainView.findViewById(R.id.notes_desc);
-        //postImage=(ImageView)mMainView.findViewById(R.id.post_image);
+        postTitle=(TextView)mMainView.findViewById(R.id.post_title);
+        postDesc=(TextView)mMainView.findViewById(R.id.post_desc);
+        postImage=(ImageView)mMainView.findViewById(R.id.post_image);
 
-
-        //mCurrent_user_id = mAuth.getCurrentUser().getUid();
-
-        mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("CloudComputingNotes");
+        mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("CircularPost");
         mDatabaseUser.keepSynced(true);
+
+
         mBlogList.setHasFixedSize(true);
         mBlogList.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
-
-
         return mMainView;
 
+
+
     }
-
-
-
 
     @Override
     public void onStart() {
         super.onStart();
 
-        FirebaseRecyclerAdapter<CloudComputingClass, CloudComputing.FriendsViewHolder> friendsRecyclerViewAdapter = new FirebaseRecyclerAdapter<CloudComputingClass, CloudComputing.FriendsViewHolder>(
+        FirebaseRecyclerAdapter<Blog, FacultyCircularDisplay.FriendsViewHolder> friendsRecyclerViewAdapter = new FirebaseRecyclerAdapter<Blog, FacultyCircularDisplay.FriendsViewHolder>(
 
-                CloudComputingClass.class,
-                R.layout.cloudcomputingrows,
-                CloudComputing.FriendsViewHolder.class,
+                Blog.class,
+                R.layout.blog_row,
+                FacultyCircularDisplay.FriendsViewHolder.class,
                 mDatabaseUser
 
 
         ) {
             @Override
-            protected void populateViewHolder(final CloudComputing.FriendsViewHolder friendsViewHolder, CloudComputingClass model, int i) {
+            protected void populateViewHolder(final FacultyCircularDisplay.FriendsViewHolder friendsViewHolder, Blog model, int i) {
 
-                friendsViewHolder.setTitle(model.getName());
+
+                friendsViewHolder.setTitle(model.getTitle());
                 friendsViewHolder.setDesc(model.getDesc());
+                friendsViewHolder.setImage(model.getImage(),getContext());
+
+
+
 
 
 
@@ -120,15 +115,20 @@ public class CloudComputing extends Fragment {
 
 
         public void setTitle(String title) {
-            TextView post_title = (TextView) mView.findViewById(R.id.notes_title);
+            TextView post_title = (TextView) mView.findViewById(R.id.post_title);
             post_title.setText(title);
         }
 
         public void setDesc(String desc) {
-            TextView post_desc = (TextView) mView.findViewById(R.id.notes_desc);
+            TextView post_desc = (TextView) mView.findViewById(R.id.post_desc);
             post_desc.setText(desc);
         }
 
+        public void setImage(String image ,Context ctx)
+        {
+            ImageView post_image=(ImageView)mView.findViewById(R.id.post_image);
+            Picasso.with(ctx).load(image).into(post_image);
+        }
 
 
     }

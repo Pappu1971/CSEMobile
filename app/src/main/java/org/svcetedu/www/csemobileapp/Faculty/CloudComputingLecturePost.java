@@ -4,26 +4,23 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.FileUriExposedException;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import org.svcetedu.www.csemobileapp.R;
-
-import java.io.File;
+import org.svcetedu.www.csemobileapp.StudentRegistration.LecutureNotes;
 
 public class CloudComputingLecturePost extends AppCompatActivity {
     private EditText notesTtitle;
@@ -39,6 +36,7 @@ public class CloudComputingLecturePost extends AppCompatActivity {
     private Button submitNOtes;
     private DatabaseReference notesDatabase;
     private ProgressDialog mProgess;
+    private Toolbar mToolbar;
 
 
     @Override
@@ -49,21 +47,11 @@ public class CloudComputingLecturePost extends AppCompatActivity {
         notesTtitle=(EditText)findViewById(R.id.notesTitle);
         notesContent=(EditText)findViewById(R.id.notesMain);
 
-        uploadNotes=(ImageButton)findViewById(R.id.uploadnotes);
-        uploadNotes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final String[] ACCEPT_MIME_TYPES = {
-                        "application/pdf",
-                        "image/*"
-                };
-                Intent intent = new Intent();
-                intent.setType("*/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                intent.putExtra(Intent.EXTRA_MIME_TYPES, ACCEPT_MIME_TYPES);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), GALLERY_REQUEST);
-            }
-        });
+
+        mToolbar = (Toolbar) findViewById(R.id.register_toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("Cloud Computing Lecture");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Progress Dialog
 
@@ -81,42 +69,56 @@ public class CloudComputingLecturePost extends AppCompatActivity {
     }
 
     private void notesSubmit() {
-        mProgess.show();
         mProgess.setTitle("Uploading your Data");
         mProgess.setCanceledOnTouchOutside(false);
         mProgess.setMessage("Please wait for a while");
+        mProgess.show();
        final String lectureTitle=notesTtitle.getText().toString().trim();
         final String lectureNotes=notesContent.getText().toString().trim();
-        if(!TextUtils.isEmpty(lectureTitle) && !TextUtils.isEmpty(lectureNotes) && fileuri!=null)
+        if(!TextUtils.isEmpty(lectureTitle) && !TextUtils.isEmpty(lectureNotes))
         {
-             StorageReference filepath=mStorage.child("CloudFiles").child(fileuri.getLastPathSegment());
-            filepath.putFile(fileuri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Uri downloadUrl=taskSnapshot.getDownloadUrl();
                     DatabaseReference cloudComputing=notesDatabase.push();
                     cloudComputing.child("name").setValue(lectureTitle);
                     cloudComputing.child("desc").setValue(lectureNotes);
-                    cloudComputing.child("image").setValue(downloadUrl.toString());
+
+
+            mProgess.dismiss();
+            Intent start=new Intent(CloudComputingLecturePost.this,FacultyDash.class);
+            startActivity(start);
+
                 }
-            });
-
-
-
-
 
         }
-    }
+
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode==GALLERY_REQUEST && resultCode==RESULT_OK)
-        {
-            fileuri=data.getData();
-            uploadNotes.setImageURI(fileuri);
-        }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.ccmenu, menu);
+        return true;
     }
-}
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.notesview) {
+            Intent ccnotesview=new Intent(CloudComputingLecturePost.this, LecutureNotes.class);
+            startActivity(ccnotesview);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+    }
+
+

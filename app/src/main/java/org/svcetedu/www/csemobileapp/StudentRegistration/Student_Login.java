@@ -73,20 +73,6 @@ public class Student_Login extends AppCompatActivity {
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         mProgress = new ProgressDialog(this);
         mAuth = FirebaseAuth.getInstance();
         mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("StudentRegistration");
@@ -110,7 +96,6 @@ public class Student_Login extends AppCompatActivity {
             public void onClick(View view) {
                 Intent register = new Intent(Student_Login.this, StudentRegistration.class);
                 startActivity(register);
-                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
             }
         });
         login.setOnClickListener(new View.OnClickListener() {
